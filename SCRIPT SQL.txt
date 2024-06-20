@@ -1,0 +1,387 @@
+alter table DIM_BIEN
+   drop constraint FK_DIM_BIEN_REFERENCE_DIM_ETAT;
+
+alter table DIM_BIEN
+   drop constraint FK_DIM_BIEN_REFERENCE_DIM_VILL;
+
+alter table DIM_BIEN
+   drop constraint FK_DIM_BIEN_REFERENCE_DIM_TYPE;
+
+alter table DIM_CLIENT
+   drop constraint FK_DIM_CLIE_REFERENCE_DIM_CIVI;
+
+alter table DIM_CLIENT
+   drop constraint FK_DIM_CLIE_REFERENCE_DIM_VILL;
+
+alter table DIM_DATE
+   drop constraint FK_DIM_DATE_REFERENCE_DIM_MOIS;
+
+alter table DIM_DEPARTEMENT
+   drop constraint FK_DIM_DEPA_REFERENCE_DIM_REGI;
+
+alter table DIM_MOIS
+   drop constraint FK_DIM_MOIS_REFERENCE_DIM_TRIM;
+
+alter table DIM_SEMESTRE
+   drop constraint FK_DIM_SEME_REFERENCE_DIM_ANNE;
+
+alter table DIM_TRIMESTRE
+   drop constraint FK_DIM_TRIM_REFERENCE_DIM_SEME;
+
+alter table DIM_VILLE
+   drop constraint FK_DIM_VILL_REFERENCE_DIM_DEPA;
+
+alter table FAIT_ACHAT
+   drop constraint FK_FAIT_ACH_REFERENCE_DIM_BIEN;
+
+alter table FAIT_ACHAT
+   drop constraint FK_FAIT_ACH_REFERENCE_DIM_LOT;
+
+alter table FAIT_ACHAT
+   drop constraint FK_FAIT_ACH_REFERENCE_DIM_AGEN;
+
+alter table FAIT_ACHAT
+   drop constraint FK_FAIT_ACH_REFERENCE_DIM_CLIE;
+
+alter table FAIT_ACHAT
+   drop constraint FK_FAIT_ACH_REFERENCE_DIM_DATE_VIS;
+
+alter table FAIT_ACHAT
+   drop constraint FK_FAIT_ACH_REFERENCE_DIM_DATE_ACH;
+
+alter table FAIT_LOCATION
+   drop constraint FK_FAIT_LOC_REFERENCE_DIM_BIEN;
+
+alter table FAIT_LOCATION
+   drop constraint FK_FAIT_LOC_REFERENCE_DIM_LOT;
+
+alter table FAIT_LOCATION
+   drop constraint FK_FAIT_LOC_REFERENCE_DIM_AGEN;
+
+alter table FAIT_LOCATION
+   drop constraint FK_FAIT_LOC_REFERENCE_DIM_CLIE;
+
+alter table FAIT_LOCATION
+   drop constraint FK_FAIT_LOC_REFERENCE_DIM_DATE_VIS;
+
+alter table FAIT_LOCATION
+   drop constraint FK_FAIT_LOC_REFERENCE_DIM_DATE_LOC;
+
+drop table DIM_AGENT cascade constraints;
+
+drop table DIM_ANNEE cascade constraints;
+
+drop table DIM_BIEN cascade constraints;
+
+drop table DIM_CIVILITE cascade constraints;
+
+drop table DIM_CLIENT cascade constraints;
+
+drop table DIM_DATE cascade constraints;
+
+drop table DIM_DEPARTEMENT cascade constraints;
+
+drop table DIM_ETAT cascade constraints;
+
+drop table DIM_LOT cascade constraints;
+
+drop table DIM_MOIS cascade constraints;
+
+drop table DIM_REGION cascade constraints;
+
+drop table DIM_SEMESTRE cascade constraints;
+
+drop table DIM_TRIMESTRE cascade constraints;
+
+drop table DIM_TYPE cascade constraints;
+
+drop table DIM_VILLE cascade constraints;
+
+drop table FAIT_ACHAT cascade constraints;
+
+drop table FAIT_LOCATION cascade constraints;
+
+/*==============================================================*/
+/* Table : DIM_AGENT                                            */
+/*==============================================================*/
+create table DIM_AGENT 
+(
+   ID_AGENT             INTEGER              not null,
+   NOM_AGENT            VARCHAR2(255),
+   PRENOM_AGENT         VARCHAR2(255),
+   constraint PK_DIM_AGENT primary key (ID_AGENT)
+);
+
+/*==============================================================*/
+/* Table : DIM_ANNEE                                            */
+/*==============================================================*/
+create table DIM_ANNEE 
+(
+   ID_ANNEE             INTEGER              not null,
+   NUM_ANNEE            INTEGER,
+   constraint PK_DIM_ANNEE primary key (ID_ANNEE)
+);
+
+/*==============================================================*/
+/* Table : DIM_BIEN                                             */
+/*==============================================================*/
+create table DIM_BIEN 
+(
+   ID_BIEN              INTEGER              not null,
+   ID_TYPE              INTEGER,
+   ID_ETAT              INTEGER,
+   ID_VILLE             INTEGER,
+   NB_PIECES            INTEGER,
+   SURFACE_BIEN         BINARY_DOUBLE,
+   PRIX_BIEN            BINARY_DOUBLE,
+   ADDRESSE_BIEN        VARCHAR2(255),
+   CODE_POSTAL_BIEN     INTEGER,
+   constraint PK_DIM_BIEN primary key (ID_BIEN)
+);
+
+/*==============================================================*/
+/* Table : DIM_CIVILITE                                         */
+/*==============================================================*/
+create table DIM_CIVILITE 
+(
+   ID_CIVILITE          INTEGER              not null,
+   NOM_CIVILITE         VARCHAR2(255),
+   constraint PK_DIM_CIVILITE primary key (ID_CIVILITE)
+);
+
+/*==============================================================*/
+/* Table : DIM_CLIENT                                           */
+/*==============================================================*/
+create table DIM_CLIENT 
+(
+   ID_CLIENT            INTEGER              not null,
+   ID_CIVILITE          INTEGER,
+   ID_VILLE             INTEGER,
+   NOM_CLIENT           VARCHAR2(255),
+   PRENOM_CLIENT        VARCHAR2(255),
+   AGE			INTEGER,
+   TRANCHE_AGE		VARCHAR2(255),
+   constraint PK_DIM_CLIENT primary key (ID_CLIENT)
+);
+
+/*==============================================================*/
+/* Table : DIM_DATE                                             */
+/*==============================================================*/
+create table DIM_DATE 
+(
+   ID_DATE              INTEGER              not null,
+   ID_MOIS              INTEGER,
+   "DATE"               DATE,
+   constraint PK_DIM_DATE primary key (ID_DATE)
+);
+
+/*==============================================================*/
+/* Table : DIM_DEPARTEMENT                                      */
+/*==============================================================*/
+create table DIM_DEPARTEMENT 
+(
+   ID_DEPARTEMENT        VARCHAR2(5)              not null,
+   ID_REGION            INTEGER,
+   NOM_DEPARTEMENT      VARCHAR2(255),
+   constraint PK_DIM_DEPARTEMENT primary key (ID_DEPARTEMENT)
+);
+
+/*==============================================================*/
+/* Table : DIM_ETAT                                             */
+/*==============================================================*/
+create table DIM_ETAT 
+(
+   ID_ETAT              INTEGER              not null,
+   NOM_ETAT             VARCHAR2(255),
+   constraint PK_DIM_ETAT primary key (ID_ETAT)
+);
+
+/*==============================================================*/
+/* Table : DIM_LOT                                              */
+/*==============================================================*/
+create table DIM_LOT 
+(
+   ID_LOT               INTEGER              not null,
+   constraint PK_DIM_LOT primary key (ID_LOT)
+);
+
+/*==============================================================*/
+/* Table : DIM_MOIS                                             */
+/*==============================================================*/
+create table DIM_MOIS 
+(
+   ID_MOIS              INTEGER              not null,
+   ID_TRIMESTRE         INTEGER,
+   NUM_MOIS             INTEGER,
+   NOM_MOIS             VARCHAR2(255),
+   constraint PK_DIM_MOIS primary key (ID_MOIS)
+);
+
+/*==============================================================*/
+/* Table : DIM_REGION                                           */
+/*==============================================================*/
+create table DIM_REGION 
+(
+   ID_REGION            INTEGER              not null,
+   NOM_REGION           VARCHAR2(255),
+   constraint PK_DIM_REGION primary key (ID_REGION)
+);
+
+
+/*==============================================================*/
+/* Table : DIM_TRIMESTRE                                        */
+/*==============================================================*/
+create table DIM_TRIMESTRE 
+(
+   ID_TRIMESTRE         INTEGER              not null,
+   ID_ANNEE          	INTEGER,
+   NUM_TRIMESTRE        INTEGER,
+   constraint PK_DIM_TRIMESTRE primary key (ID_TRIMESTRE)
+);
+
+/*==============================================================*/
+/* Table : DIM_TYPE                                             */
+/*==============================================================*/
+create table DIM_TYPE 
+(
+   ID_TYPE              INTEGER              not null,
+   NOM_TYPE             VARCHAR2(255),
+   constraint PK_DIM_TYPE primary key (ID_TYPE)
+);
+
+/*==============================================================*/
+/* Table : DIM_VILLE                                            */
+/*==============================================================*/
+create table DIM_VILLE 
+(
+   ID_VILLE             INTEGER              not null,
+   ID_DEPARTEMENT       VARCHAR2(5),
+   NOM_VILLE            VARCHAR2(255),
+   constraint PK_DIM_VILLE primary key (ID_VILLE)
+);
+
+/*==============================================================*/
+/* Table : FAIT_ACHAT                                           */
+/*==============================================================*/
+create table FAIT_ACHAT 
+(
+   ID_DATE_VISITE       INTEGER,
+   ID_DATE_ACHAT        INTEGER,
+   ID_BIEN              INTEGER,
+   ID_LOT               INTEGER,
+   ID_AGENT             INTEGER,
+   ID_CLIENT            INTEGER,
+   PRIX_ACHAT           BINARY_DOUBLE,
+   PRIX_LOT             BINARY_DOUBLE,
+   DUREE_VISITE_ACHAT   INT,
+   NOMBRE_BIEN_LOT      INT,
+   ECART_PRIX_ACHAT_PRIX_BIEN DOUBLE PRECISION,
+   PRIX_M2              DOUBLE PRECISION
+);
+
+/*==============================================================*/
+/* Table : FAIT_LOCATION                                        */
+/*==============================================================*/
+create table FAIT_LOCATION 
+(
+   ID_DATE_VISITE       INTEGER,
+   ID_DATE_LOCATION     INTEGER,
+   ID_BIEN              INTEGER,
+   ID_LOT               INTEGER,
+   ID_AGENT             INTEGER,
+   ID_CLIENT            INTEGER,
+   PRIX_LOCATION        BINARY_DOUBLE,
+   PRIX_LOT             BINARY_DOUBLE,
+   DUREE_VISITE_LOCATION INT,
+   NOMBRE_BIEN_LOT      INT,
+   ECART_PRIX_LOC_PRIX_BIEN DOUBLE PRECISION,
+   PRIX_M2              DOUBLE PRECISION
+);
+
+alter table DIM_BIEN
+   add constraint FK_DIM_BIEN_REFERENCE_DIM_ETAT foreign key (ID_ETAT)
+      references DIM_ETAT (ID_ETAT);
+
+alter table DIM_BIEN
+   add constraint FK_DIM_BIEN_REFERENCE_DIM_VILL foreign key (ID_VILLE)
+      references DIM_VILLE (ID_VILLE);
+
+alter table DIM_BIEN
+   add constraint FK_DIM_BIEN_REFERENCE_DIM_TYPE foreign key (ID_TYPE)
+      references DIM_TYPE (ID_TYPE);
+
+alter table DIM_CLIENT
+   add constraint FK_DIM_CLIE_REFERENCE_DIM_CIVI foreign key (ID_CIVILITE)
+      references DIM_CIVILITE (ID_CIVILITE);
+
+alter table DIM_CLIENT
+   add constraint FK_DIM_CLIE_REFERENCE_DIM_VILL foreign key (ID_VILLE)
+      references DIM_VILLE (ID_VILLE);
+
+alter table DIM_DATE
+   add constraint FK_DIM_DATE_REFERENCE_DIM_MOIS foreign key (ID_MOIS)
+      references DIM_MOIS (ID_MOIS);
+
+alter table DIM_DEPARTEMENT
+   add constraint FK_DIM_DEPA_REFERENCE_DIM_REGI foreign key (ID_REGION)
+      references DIM_REGION (ID_REGION);
+
+alter table DIM_MOIS
+   add constraint FK_DIM_MOIS_REFERENCE_DIM_TRIM foreign key (ID_TRIMESTRE)
+      references DIM_TRIMESTRE (ID_TRIMESTRE);
+
+alter table DIM_TRIMESTRE
+   add constraint FK_DIM_TRIME_REFERENCE_DIM_ANNE foreign key (ID_ANNEE)
+      references DIM_ANNEE (ID_ANNEE);
+
+alter table DIM_VILLE
+   add constraint FK_DIM_VILL_REFERENCE_DIM_DEPA foreign key (ID_DEPARTEMENT)
+      references DIM_DEPARTEMENT (ID_DEPARTEMENT);
+
+alter table FAIT_ACHAT
+   add constraint FK_FAIT_ACH_REFERENCE_DIM_BIEN foreign key (ID_BIEN)
+      references DIM_BIEN (ID_BIEN);
+
+alter table FAIT_ACHAT
+   add constraint FK_FAIT_ACH_REFERENCE_DIM_LOT foreign key (ID_LOT)
+      references DIM_LOT (ID_LOT);
+
+alter table FAIT_ACHAT
+   add constraint FK_FAIT_ACH_REFERENCE_DIM_AGEN foreign key (ID_AGENT)
+      references DIM_AGENT (ID_AGENT);
+
+alter table FAIT_ACHAT
+   add constraint FK_FAIT_ACH_REFERENCE_DIM_CLIE foreign key (ID_CLIENT)
+      references DIM_CLIENT (ID_CLIENT);
+
+alter table FAIT_ACHAT
+   add constraint FK_FAIT_ACH_REFERENCE_DIM_DATE_VIS foreign key (ID_DATE_VISITE)
+      references DIM_DATE (ID_DATE);
+
+alter table FAIT_ACHAT
+   add constraint FK_FAIT_ACH_REFERENCE_DIM_DATE_ACH foreign key (ID_DATE_ACHAT)
+      references DIM_DATE (ID_DATE);
+
+alter table FAIT_LOCATION
+   add constraint FK_FAIT_LOC_REFERENCE_DIM_BIEN foreign key (ID_BIEN)
+      references DIM_BIEN (ID_BIEN);
+
+alter table FAIT_LOCATION
+   add constraint FK_FAIT_LOC_REFERENCE_DIM_LOT foreign key (ID_LOT)
+      references DIM_LOT (ID_LOT);
+
+alter table FAIT_LOCATION
+   add constraint FK_FAIT_LOC_REFERENCE_DIM_AGEN foreign key (ID_AGENT)
+      references DIM_AGENT (ID_AGENT);
+
+alter table FAIT_LOCATION
+   add constraint FK_FAIT_LOC_REFERENCE_DIM_CLIE foreign key (ID_CLIENT)
+      references DIM_CLIENT (ID_CLIENT);
+
+alter table FAIT_LOCATION
+   add constraint FK_FAIT_LOC_REFERENCE_DIM_DATE_VIS foreign key (ID_DATE_VISITE)
+      references DIM_DATE (ID_DATE);
+
+alter table FAIT_LOCATION
+   add constraint FK_FAIT_LOC_REFERENCE_DIM_DATE_LOC foreign key (ID_DATE_LOCATION)
+      references DIM_DATE (ID_DATE);
